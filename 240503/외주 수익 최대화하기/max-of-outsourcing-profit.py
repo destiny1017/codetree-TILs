@@ -12,6 +12,10 @@ dp = [0] * (n)
 for i in range(n):
     for j in range(i+1):
         if j + jobs[j][0] - 1 == i:
+            # print(i, j)
             dp[i] = max(dp[i], dp[j - jobs[j][0]] + jobs[j][1])
+        else:
+            dp[i] = max(dp[i], dp[i-1])
 
+# print(dp)
 print(max(dp))
