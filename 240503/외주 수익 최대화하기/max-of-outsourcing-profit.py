@@ -14,8 +14,8 @@ for i in range(n):
         if j + jobs[j][0] - 1 == i:
             # print(i, j)
             dp[i] = max(dp[i], dp[j - jobs[j][0]] + jobs[j][1])
-        else:
-            dp[i] = max(dp[i], dp[i-1])
+    if dp[i] == 0:
+        dp[i] = dp[i-1]
 
 # print(dp)
 print(max(dp))
