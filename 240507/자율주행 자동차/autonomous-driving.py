@@ -16,7 +16,7 @@ road[coord[0]][coord[1]] = 2 # 시작자리 체크
 
 # 북동남서 이동용 좌표
 dx = (-1,0,1,0)
-dy = (0,-1,0,1)
+dy = (0,1,0,-1)
 
 def check_road():
     st_direction = coord[2]
