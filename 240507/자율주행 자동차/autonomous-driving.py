@@ -35,8 +35,8 @@ def check_road():
     return -1, -1
 
 def back_check():
-    nx = coord[0] + dx[coord[(2 + 2) % 4]]
-    ny = coord[1] + dy[coord[(2 + 2) % 4]]
+    nx = coord[0] + dx[(coord[2] + 2) % 4]
+    ny = coord[1] + dy[(coord[2] + 2) % 4]
     if nx < 0 or nx >= x or ny < 0 or ny >= y:
         return -1, -1
     if road[nx][ny] == 1:
@@ -48,6 +48,9 @@ def move(nx, ny):
     road[nx][ny] = 2
 
 while True:
+    # for r in road:
+    #     print(r)
+    # print()
     nx, ny = check_road()
     if nx >= 0:
         move(nx, ny)
@@ -60,6 +63,7 @@ while True:
 
 cnt = 0
 for r in road:
+    # print(r)
     for i in r:
         if i == 2:
             cnt += 1
