@@ -20,8 +20,8 @@ dy = (0,1,0,-1)
 
 def check_road():
     st_direction = coord[2]
-    for i in range(4):
-        spin_direction = (i + st_direction + 1) % 4 # 좌회전
+    for i in range(3, -1, -1):
+        spin_direction = (i + st_direction) % 4 # 좌회전
         nx = coord[0] + dx[spin_direction]
         ny = coord[1] + dy[spin_direction]
         if nx < 0 or nx >= x or ny < 0 or ny >= y:
