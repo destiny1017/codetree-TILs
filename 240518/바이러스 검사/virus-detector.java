@@ -1,18 +1,23 @@
 import java.lang.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Scanner scan = new Scanner(System.in);
-        int n = Integer.parseInt(scan.nextLine());
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+
+        int n = Integer.parseInt(br.readLine());
         int[] people = new int[n];
-        String[] peopleStr = scan.nextLine().split(" ");
+        st = new StringTokenizer(br.readLine());
         for(int i = 0; i < n; i++) {
-            people[i] = Integer.parseInt(peopleStr[i]);
+            people[i] = Integer.parseInt(st.nextToken());
         }
-        int[] leaderMember = Arrays.stream((scan.nextLine().split(" ")))
-                                .mapToInt(Integer::parseInt)
-                                .toArray();
+        int[] leaderMember = new int[2];
+        st = new StringTokenizer(br.readLine());
+        leaderMember[0] = Integer.parseInt(st.nextToken());
+        leaderMember[1] = Integer.parseInt(st.nextToken());
 
         long val = 0;
         for(int p : people) {
