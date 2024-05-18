@@ -14,13 +14,12 @@ public class Main {
                                 .mapToInt(Integer::parseInt)
                                 .toArray();
 
-        int val = 0;
+        long val = 0;
         for(int p : people) {
             p -= leaderMember[0];
             val += 1;
             if(p > 0) {
-                int ceil = (int) Math.ceil((double)p / leaderMember[1]);
-                val += ceil;
+                val += (int) Math.ceil((double)p / leaderMember[1]);
             }
             
         }
