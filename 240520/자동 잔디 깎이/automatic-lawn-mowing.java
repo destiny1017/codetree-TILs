@@ -15,7 +15,7 @@ public class Main {
         indicator.put("W", new Integer[]{0, -1});
         indicator.put("S", new Integer[]{1, 0});
         indicator.put("N", new Integer[]{-1, 0});
-        
+
         int[][] visit = new int[maxLen*2][maxLen*2];
         int x = maxLen, y = maxLen, minVisit = maxLen;
         int step = 0;
@@ -30,6 +30,7 @@ public class Main {
 
                 if(visit[x][y] < maxLen && visit[x][y] != 0) {
                     minVisit = Math.min(minVisit, step - visit[x][y]);
+                    visit[x][y] = step;
                 } else {
                     visit[x][y] = step;
                 }
