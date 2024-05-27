@@ -3,11 +3,18 @@ n = int(sys.stdin.readline())
 lines = [int(sys.stdin.readline()) for _ in range(n)]
 lines.sort()
 prev = 0
-for line in lines:
-    now = line * n
+
+for i in range(len(lines)):
+
+    if lines[i] == lines[i-1]:
+        continue
+
+    now = lines[i] * (n-i)
+    
     if now < prev:
         break
+
     prev = now
-    n -= 1
+ 
 
 print(prev)
