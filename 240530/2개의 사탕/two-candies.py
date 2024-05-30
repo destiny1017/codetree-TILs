@@ -13,6 +13,7 @@ import copy
 dx, dy = [-1, 1, 0, 0], [0, 0, -1, 1]
 n, m = map(int, input().split())
 o = [-1, -1]
+nr, nb = [-1, -1], [-1, -1]
 board = []
 
 for i in range(n):
@@ -20,20 +21,26 @@ for i in range(n):
     for j, char in enumerate(input()):
         if char == 'O':
             o = [i, j]
+        if char == 'R':
+            char = '.'
+            nr = [i, j]
+        elif char == 'B':
+            char = '.'
+            nb = [i, j]
         board[i].append(char)
 
 
-def move(x, y, direction, tboard):
+def move(x, y, nr, nb, direction):
     nx, ny = x, y
     while True:
         nx = x + dx[direction]
         ny = y + dy[direction]
-        if tboard[nx][ny] == '#' or tboard[nx][ny] == 'R' or tboard[nx][ny] == 'B':
+        if board[nx][ny] == '#' or [nx, ny] == nr or [nx, ny] == nb:
             break
         x, y = nx, ny
     return [x, y]
 
-def lean(tboard, direction):
+def lean(direction, nr, nb):
 
     r, b = [0,0], [0,0]
     sti, edi, operi = 0, 0, 0
@@ -51,54 +58,60 @@ def lean(tboard, direction):
     if direction in [0, 1]:
         for i in range(sti, edi, operi):
             for j in range(m):
-                if tboard[i][j] == 'R':
-                    tboard[i][j] = '.'
-                    r = move(i, j, direction, tboard)
+                if i == nr[0] and j == nr[1]:
+                    r = move(i, j, nr, nb, direction)
+                if i == nb[0] and j == nb[1]:
                     if r == o:
-                        tboard[r[0]][r[1]] = 'O'
+                        b = move(i, j, [0,0], nb, direction)
                     else:
-                        tboard[r[0]][r[1]] = 'R'
-                if tboard[i][j] == 'B':
-                    tboard[i][j] = '.'
-                    b = move(i, j, direction, tboard)
-                    tboard[b[0]][b[1]] = 'B'
+                        b = move(i, j, nr, nb, direction)
     elif direction in [2, 3]:
         for j in range(stj, edj, operj):
             for i in range(n):
-                if tboard[i][j] == 'R':
-                    tboard[i][j] = '.'
-                    r = move(i, j, direction, tboard)
+                if i == nr[0] and j == nr[1]:
+                    r = move(i, j, nr, nb, direction)
+                if i == nb[0] and j == nb[1]:
                     if r == o:
-                        tboard[r[0]][r[1]] = 'O'
+                        b = move(i, j, [0,0], nb, direction)
                     else:
-                        tboard[r[0]][r[1]] = 'R'
-                if tboard[i][j] == 'B':
-                    tboard[i][j] = '.'
-                    b = move(i, j, direction, tboard)
-                    tboard[b[0]][b[1]] = 'B'
+                        b = move(i, j, nr, nb, direction)
 
-    return tboard, r, b
+    return r, b
 
 queue = deque([])
-queue.append((board, 1))
-while True:
+queue.append((nr, nb, 1))
+while queue:
     arrival = False
-    qboard, cnt = queue.popleft()
+    nr, nb, cnt = queue.popleft()
+    # board[nr[0]][nr[1]] = 'R'
+    # board[nb[0]][nb[1]] = 'B'
+    # print("##### start")
+    # for row in board:
+    #     print("".join(row))
+    
+    # board[nr[0]][nr[1]] = '.'
+    # board[nb[0]][nb[1]] = '.'
     for i in range(4):
-        # tboard = qboard.copy()
-        # for row in qboard:
-        #     print(row)
-        rboard, r, b = lean(copy.deepcopy(qboard), i)
-        # print(f"r={r}, b={b}, o={o}, cnt={cnt}")
-        # for row in rboard:
+        r, b = lean(i, nr, nb)
+        # print(f"r={r}, b={b}, o={o}, i={i}, cnt={cnt}")
+
+        # board[r[0]][r[1]] = 'R'
+        # board[b[0]][b[1]] = 'B'
+        # for row in board:
         #     print("".join(row))
+        
+        # board[r[0]][r[1]] = '.'
+        # board[b[0]][b[1]] = '.'
         
         if r == o and b != o:
             arrival = True
             break
         elif r == o and b == o:
             break
-        queue.append((rboard, cnt+1))
+        elif r == nr and b == nb:
+            continue
+        queue.append((r, b, cnt+1))
+        # print("add")
 
     # if cnt > 3:
     #     print(cnt)
