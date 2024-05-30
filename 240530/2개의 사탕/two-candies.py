@@ -40,17 +40,17 @@ def lean(tboard, direction):
     stj, edj, operj = 0, 0, 0
     
     if direction == 0:
-        sti, edi, operi = 0, m, 1
+        sti, edi, operi = 0, n, 1
     elif direction == 1:
-        sti, edi, operi = m-1, -1, -1
+        sti, edi, operi = n-1, -1, -1
     elif direction == 2:
-        stj, edj, operj = 0, n, 1
+        stj, edj, operj = 0, m, 1
     elif direction == 3:
-        stj, edj, operj = n-1, -1, -1
+        stj, edj, operj = m-1, -1, -1
 
     if direction in [0, 1]:
         for i in range(sti, edi, operi):
-            for j in range(0, m, 1):
+            for j in range(m):
                 if tboard[i][j] == 'R':
                     tboard[i][j] = '.'
                     r = move(i, j, direction, tboard)
@@ -64,7 +64,7 @@ def lean(tboard, direction):
                     tboard[b[0]][b[1]] = 'B'
     elif direction in [2, 3]:
         for j in range(stj, edj, operj):
-            for i in range(0, n, 1):
+            for i in range(n):
                 if tboard[i][j] == 'R':
                     tboard[i][j] = '.'
                     r = move(i, j, direction, tboard)
