@@ -89,12 +89,12 @@ def lean(direction, nr, nb):
 
 queue = deque([])
 queue.append([R, B, 1])
+result = -1
 while queue:
     arrival = False
     nr, nb, cnt = queue.popleft()
 
     if cnt > 10:
-        print(-1)
         break
 
     # 상하좌우 순서로 한번씩 기울여보기
@@ -114,5 +114,7 @@ while queue:
             visit_set.add(coord_key)
 
     if arrival:
-        print(cnt)
+        result = cnt
         break
+
+print(result)
