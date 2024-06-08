@@ -24,14 +24,14 @@ for i in range(n-1):
         last_buy = today
         buy_flag = True
     else: # 내일이 더 작으면 매도
-        w = w + (today * amount)
+        w += today * amount
         amount = 0
         buy_flag = False
-    #print(today, w, amount)
 
+# 들고 있는 주식이 있고 마지막날 가격이 마지막 전날보다 크면 매도
 if amount > 0 and price[-1] > price[-2]:
     w += price[-1] * amount
-else:
+else: # 마지막날 가격이 떨어지면 마지막 매수 시점가격으로 복귀
     w += last_buy * amount
 
 print(w)
