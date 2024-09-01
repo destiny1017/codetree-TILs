@@ -30,7 +30,7 @@ for num in arr:
         else:
             max_cnt = max(repeat_cnt, max_cnt)
             repeat_cnt = 1
-
         jump_cnt = 1
+    max_cnt = max(repeat_cnt, max_cnt)
 
 print(max_cnt)
